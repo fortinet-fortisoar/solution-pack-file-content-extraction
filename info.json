@@ -1,0 +1,94 @@
+{
+    "name": "fileContentExtraction",
+    "version": "1.0.0",
+    "type": "solutionpack",
+    "local": true,
+    "label": "File Content Extraction",
+    "dependencies": [
+        {
+            "name": "sOARFramework",
+            "type": "solutionpack",
+            "label": "SOAR Framework",
+            "version": "1.0.0",
+            "minVersion": null
+        }
+    ],
+    "prerequisite": null,
+    "publisher": "Fortinet CSE",
+    "description": "Playbooks implementing File Content Extraction use cases",
+    "help": null,
+    "category": [
+        "Investigation",
+        "Enrichment"
+    ],
+    "supportInfo": null,
+    "iconLarge": null,
+    "recordTags": [
+        "Utility"
+    ],
+    "fsrMinCompatibility": "7.2.0",
+    "date": "2022-06-09T03:33:21+00:00",
+    "contents": {
+        "modules": {
+            "attachments": {
+                "name": "Attachments",
+                "apiName": "attachments"
+            },
+            "indicators": {
+                "name": "Indicators",
+                "apiName": "indicators"
+            }
+        },
+        "viewTemplates": {
+            "attachments": {
+                "name": "Attachments",
+                "apiName": "attachments",
+                "views": [
+                    "list",
+                    "detail"
+                ]
+            },
+            "indicators": {
+                "name": "Indicators",
+                "apiName": "indicators",
+                "views": [
+                    "list",
+                    "detail",
+                    "settings"
+                ]
+            }
+        },
+        "playbooks": [
+            {
+                "name": "02 - Use Case - File Content Extraction - 1.0.0"
+            }
+        ],
+        "globalVariables": [
+            {
+                "id": 12,
+                "name": "Excludelist_IPs",
+                "value": "8.8.8.8,10.1.1.2",
+                "default_value": "8.8.8.8,10.1.1.2"
+            },
+            {
+                "id": 13,
+                "name": "Excludelist_URLs",
+                "value": "https://www.google.com,https://mail.yahoo.com/login.html,https://www.office.com/",
+                "default_value": "https://www.google.com,https://mail.yahoo.com/login.html,https://www.office.com/"
+            },
+            {
+                "id": 14,
+                "name": "Excludelist_Domains",
+                "value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.comm,fortielab.com",
+                "default_value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com"
+            }
+        ],
+        "connectors": [
+            {
+                "name": "File Content Extraction",
+                "apiName": "file-content-extraction",
+                "version": "1.0.3"
+            }
+        ]
+    }
+}
