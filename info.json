@@ -22,7 +22,7 @@
         "Enrichment"
     ],
     "supportInfo": null,
-    "iconLarge": null,
+    "iconLarge": "large_icon.png",
     "recordTags": [
         "Utility"
     ],
