@@ -22,12 +22,12 @@
         "Enrichment"
     ],
     "supportInfo": null,
-    "iconLarge": "large_icon.png",
+    "iconLarge": "fsr-icon-large.png",
     "recordTags": [
         "Utility"
     ],
     "fsrMinCompatibility": "7.2.0",
-    "date": "2022-06-09T03:33:21+00:00",
+    "date": "2022-06-17T08:19:43+00:00",
     "contents": {
         "modules": {
             "attachments": {
@@ -86,8 +86,7 @@
         "connectors": [
             {
                 "name": "File Content Extraction",
-                "apiName": "file-content-extraction",
-                "version": "1.0.3"
+                "apiName": "file-content-extraction"
             }
         ]
     }

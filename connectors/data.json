@@ -5,7 +5,6 @@
         "category": "utilities",
         "description": "Utility to Extract Text, Artifacts and Metadata from almost any file. Internet connectivity is required for the connector to download dependent packages",
         "publisher": null,
-        "version": "1.0.3",
         "operation_roles": {
             "extract_text": [],
             "extract_indicators": [],
@@ -13,7 +12,6 @@
         },
         "configurations": [],
         "dataImports": [],
-        "install_mode": "tgz",
-        "installer_path": "file-content-extraction_1.0.3.tgz"
+        "install_mode": "rpm"
     }
 ]
