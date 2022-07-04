@@ -5,11 +5,7 @@
         "category": "utilities",
         "description": "Utility to Extract Text, Artifacts and Metadata from almost any file. Internet connectivity is required for the connector to download dependent packages",
         "publisher": null,
-        "operation_roles": {
-            "extract_text": [],
-            "extract_indicators": [],
-            "get_backend_config": []
-        },
+        "operation_roles": [],
         "configurations": [],
         "dataImports": [],
         "install_mode": "rpm"
