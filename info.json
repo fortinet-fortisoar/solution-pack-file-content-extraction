@@ -16,7 +16,7 @@
     "prerequisite": null,
     "publisher": "Fortinet CSE",
     "description": "Playbooks implementing File Content Extraction use cases",
-    "help": null,
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.0.0/docs/README.md",
     "category": [
         "Investigation",
         "Enrichment"
@@ -26,15 +26,11 @@
     "recordTags": [
         "Utility"
     ],
-    "fsrMinCompatibility": "7.2.0",
-    "date": "2022-06-17T08:19:43+00:00",
+    "fsrMinCompatibility": "7.2.1",
+    "date": "2022-07-04T12:29:53+00:00",
     "contents": {
         "modules": {
-            "attachments": {
-                "name": "Attachments",
-                "apiName": "attachments"
-            },
-            "indicators": {
+            "": {
                 "name": "Indicators",
                 "apiName": "indicators"
             }
@@ -44,7 +40,6 @@
                 "name": "Attachments",
                 "apiName": "attachments",
                 "views": [
-                    "list",
                     "detail"
                 ]
             },
@@ -52,9 +47,7 @@
                 "name": "Indicators",
                 "apiName": "indicators",
                 "views": [
-                    "list",
-                    "detail",
-                    "settings"
+                    "detail"
                 ]
             }
         },
