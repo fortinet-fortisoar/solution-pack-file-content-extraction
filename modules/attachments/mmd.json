@@ -8,7 +8,7 @@
     "type": "attachments",
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/504224ab-24fe-4f61-8c60-9fec759af9b6",
+            "@id": "\/api\/3\/attribute_metadatas\/16352977-b8e9-494a-9f86-21d6a7b6e52b",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "filePreview",
@@ -46,7 +46,7 @@
             "identifier": null,
             "unique": false,
             "recommend": false,
-            "uuid": "504224ab-24fe-4f61-8c60-9fec759af9b6",
+            "uuid": "16352977-b8e9-494a-9f86-21d6a7b6e52b",
             "displayName": "{{ filePreview }}",
             "descriptions": {
                 "singular": "File Preview"

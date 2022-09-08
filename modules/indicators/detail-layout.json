@@ -28,22 +28,6 @@
                                 }
                             },
                             {
-                                "type": "customPicklistMessage-1.1.0",
-                                "config": {
-                                    "wid": "92e4deb2-a544-4e91-a61b-eff077e58cdd",
-                                    "picklits_mapping": {
-                                        "options": [
-                                            {
-                                                "picklistValue": "In Process",
-                                                "picklistLoadingTitle": "Please wait while the indicator is being enriched.",
-                                                "showSpinner": true
-                                            }
-                                        ]
-                                    },
-                                    "picklistItem": "enrichmentStatus"
-                                }
-                            },
-                            {
                                 "type": "editableFormGroup",
                                 "config": {
                                     "wid": "f6eb0842-72ea-400f-8762-f7b1b096120a",
@@ -104,18 +88,6 @@
                                                             "highlightMode": true,
                                                             "linky": true,
                                                             "readOnly": true
-                                                        },
-                                                        {
-                                                            "name": "sourceID",
-                                                            "highlightMode": true,
-                                                            "linky": true,
-                                                            "readOnly": false
-                                                        },
-                                                        {
-                                                            "name": "sources",
-                                                            "highlightMode": true,
-                                                            "linky": true,
-                                                            "readOnly": false
                                                         }
                                                     ],
                                                     "style": "col-lg-4"
@@ -139,12 +111,6 @@
                                                             "highlightMode": true,
                                                             "linky": true,
                                                             "readOnly": true
-                                                        },
-                                                        {
-                                                            "name": "confidence",
-                                                            "highlightMode": true,
-                                                            "linky": true,
-                                                            "readOnly": false
                                                         }
                                                     ],
                                                     "style": "col-lg-4"
@@ -168,7 +134,7 @@
                                                             "name": "description",
                                                             "highlightMode": true,
                                                             "linky": true,
-                                                            "readOnly": true
+                                                            "readOnly": false
                                                         }
                                                     ]
                                                 }
@@ -222,7 +188,23 @@
                                             "widget": {
                                                 "type": "relationship.subtab",
                                                 "config": {
-                                                    "excludes": [],
+                                                    "excludes": [
+                                                        "notes",
+                                                        "comments",
+                                                        "attachments",
+                                                        "appliances",
+                                                        "companies",
+                                                        "connectorresponse",
+                                                        "files",
+                                                        "people",
+                                                        "scans",
+                                                        "system_assigned_queues",
+                                                        "tasks",
+                                                        "vulnerabilities",
+                                                        "persons",
+                                                        "owners",
+                                                        "connectorresponses"
+                                                    ],
                                                     "wid": "0a419a62-e410-4176-900e-2fbf46410cae",
                                                     "gridsConfig": {
                                                         "alerts": {
@@ -292,21 +274,7 @@
                                                                 "status"
                                                             ]
                                                         }
-                                                    },
-                                                    "selectionType": "include",
-                                                    "expandableCol": [],
-                                                    "enableHorizontalScroll": [],
-                                                    "includes": [
-                                                        "campaigns",
-                                                        "hunts",
-                                                        "events",
-                                                        "alerts",
-                                                        "assets",
-                                                        "incidents",
-                                                        "indicators",
-                                                        "warrooms",
-                                                        "tasks"
-                                                    ]
+                                                    }
                                                 }
                                             },
                                             "show": true,
@@ -334,6 +302,34 @@
                                                     "wid": "24556ddc-364c-464d-8173-fc11d096e034"
                                                 }
                                             }
+                                        },
+                                        {
+                                            "title": "File Preview",
+                                            "active": 0,
+                                            "icon": "fa fa-none",
+                                            "widget": {
+                                                "type": "editableFormGroup",
+                                                "config": {
+                                                    "wid": "17e3384a-0046-442f-8966-8b21fc000570",
+                                                    "rows": [
+                                                        {
+                                                            "columns": [
+                                                                {
+                                                                    "fields": [
+                                                                        {
+                                                                            "name": "filePreview",
+                                                                            "highlightMode": true,
+                                                                            "linky": true,
+                                                                            "readOnly": false
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "show": false
                                         }
                                     ]
                                 }
@@ -422,8 +418,7 @@
                     "picklistBar": ""
                 }
             }
-        },
-        "metadata": []
+        }
     },
     "uuid": "modules-indicators-detail"
 }
