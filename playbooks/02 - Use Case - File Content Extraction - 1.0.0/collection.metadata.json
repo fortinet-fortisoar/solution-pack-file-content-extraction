@@ -1,0 +1,11 @@
+{
+    "@context": "\/api\/3\/contexts\/WorkflowCollection",
+    "@type": "WorkflowCollection",
+    "name": "02 - Use Case - File Content Extraction - 1.0.0",
+    "description": "Use case playbooks for File Content Extraction Connectors",
+    "visible": true,
+    "image": null,
+    "uuid": "949bcf7c-802d-4201-968a-ce6120c8fadd",
+    "deletedAt": null,
+    "recordTags": []
+}
