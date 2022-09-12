@@ -1,6 +1,6 @@
 {
     "name": "fileContentExtraction",
-    "version": "1.0.1",
+    "version": "1.0.0",
     "type": "solutionpack",
     "local": true,
     "label": "File Content Extraction",

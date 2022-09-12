@@ -8,7 +8,7 @@
     "type": "indicators",
     "attributes": [
         {
-            "@id": "\/api\/3\/attribute_metadatas\/2bf6a35a-d08b-4cf9-b65c-604f5ed3b1a0",
+            "@id": "\/api\/3\/attribute_metadatas\/f8df3e40-4af4-4050-81a3-1be2dfd1e41b",
             "@type": "AttributeMetadata",
             "type": "string",
             "name": "filePreview",
@@ -46,7 +46,7 @@
             "identifier": null,
             "unique": false,
             "recommend": false,
-            "uuid": "2bf6a35a-d08b-4cf9-b65c-604f5ed3b1a0",
+            "uuid": "f8df3e40-4af4-4050-81a3-1be2dfd1e41b",
             "displayName": "{{ filePreview }}",
             "descriptions": {
                 "singular": "File Preview"

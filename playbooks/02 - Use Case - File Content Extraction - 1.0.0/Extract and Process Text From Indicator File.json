@@ -48,9 +48,6 @@
             "description": null,
             "arguments": {
                 "resource": {
-                    "__link": {
-                        "alerts": "{{vars.alerts_iris}}"
-                    },
                     "description": "{%if 'filePreview' in vars.input.records[0]%}{{vars.input.records[0].description}}{%else%}<table style=\"width:100%\">\n<tr>\n<td>{{vars.file_attributes_html}}<\/td>\n<\/tr>\n<tr>\n<td>{{vars.file_content_html}}<\/td>\n<\/tr>\n<\/table>{{vars.input.records[0].description}}{%endif%}",
                     "filePreview": "<table style=\"width: 100%;\">\n<tbody>\n<tr>\n<td>{{vars.file_attributes_html}}<\/td>\n<\/tr>\n<tr>\n<td>{{vars.file_content_html}}<\/td>\n<\/tr>\n<\/tbody>\n<\/table>"
                 },
@@ -77,7 +74,7 @@
             "description": null,
             "arguments": {
                 "whitelist": "{{vars.ips | union(vars.urls) |union(vars.domains)}}",
-                "alerts_iris": "{%set alert_data=(vars.record_data[\"@id\"]+\"\/alerts?&__selectFields=name\")|fromIRI%}{{alert_data[\"hydra:member\"]|json_query('[][\"@id\"][]')}}",
+                "alerts_iris": "{%if vars.record_data.alerts|length >0%}\n{{vars.record_data|json_query(\"alerts[].[\\\"@id\\\"]\")|flatten(levels=1)}}\n{%endif%}",
                 "__make_attr_table": "{%for k,v in vars.extraction_result.metadata.items()%}\n{%if k in [\"Creation-Date\",\"Last-Modified\",\"subject\",\"custom:Editor\",\"custom:Email\",\"Application-Name\"]%}\n{{vars.main_file_attributes.update({k.replace('-',' ').replace('custom:',' ').capitalize():v})}}\n{%else%}\n{{vars.rest_of_file_attributes.update({k.replace('-',' ').replace('custom:',' ').capitalize():v})}}\n{%endif%}\n{%endfor%}\n{{vars.list_of_lists.append(['Main File Attributes',vars.main_file_attributes])}}\n{{vars.list_of_lists.append(['Extended File Attributes',vars.rest_of_file_attributes])}}",
                 "extracted_indicators": "{{vars.steps.Extract_text|extract_artifacts}}"
             },
@@ -167,15 +164,37 @@
                     "condition": ""
                 },
                 "resource": {
-                    "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                    "tlp": {
+                        "id": 313,
+                        "@id": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "icon": null,
+                        "uuid": "7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                        "@type": "Picklist",
+                        "color": "#FFBF00",
+                        "display": "Amber",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/40f1345f-f679-43c0-9237-5b06edd8385f",
+                        "itemValue": "Amber",
+                        "orderIndex": 1
+                    },
                     "value": "{{vars.item.value}}",
                     "alerts": "{{vars.alerts_iris}}",
                     "tenant": "\/api\/3\/tenants\/b3a700f7-00be-4ef9-90c6-3c8fe6e1be63",
-                    "__replace": "false",
+                    "__replace": "true",
                     "indicators": "{{vars.input.records[0]['@id']}}",
-                    "indicatorStatus": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
-                    "typeofindicator": "{{('IndicatorType' | picklist(vars.item.type))['@id']}}",
-                    "enrichmentStatus": "\/api\/3\/picklists\/a6d9da29-27b1-4b8a-965d-8d91518540d5"
+                    "indicatorStatus": {
+                        "id": 369,
+                        "@id": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                        "icon": null,
+                        "@type": "Picklist",
+                        "color": null,
+                        "display": "TBD",
+                        "@context": "\/api\/3\/contexts\/Picklist",
+                        "listName": "\/api\/3\/picklist_names\/e6639d57-94a9-432f-a46f-b2b530402077",
+                        "itemValue": "TBD",
+                        "orderIndex": 3
+                    },
+                    "typeofindicator": "{{('IndicatorType' | picklist(vars.item.type))['@id']}}"
                 },
                 "_showJson": false,
                 "operation": "Overwrite",
@@ -236,6 +255,15 @@
         },
         {
             "@type": "WorkflowRoute",
+            "name": "Compute attributes -> Compute extraction summary",
+            "targetStep": "\/api\/3\/workflow_steps\/a62c1932-0720-48ff-a2ef-a57ca2b8bbd2",
+            "sourceStep": "\/api\/3\/workflow_steps\/7fe93626-1500-436f-ac39-679f633dab41",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "89ad2eb8-4f22-45a1-92a8-d130db2219ff"
+        },
+        {
+            "@type": "WorkflowRoute",
             "name": "Copy  of Whitelist Indicators -> Create Indicators",
             "targetStep": "\/api\/3\/workflow_steps\/c42ab9bc-b2b1-4424-9a42-cad51c22e0ff",
             "sourceStep": "\/api\/3\/workflow_steps\/a62c1932-0720-48ff-a2ef-a57ca2b8bbd2",
@@ -260,15 +288,6 @@
             "label": null,
             "isExecuted": false,
             "uuid": "bd496cac-9af5-4b65-b3b1-6310b0e91fad"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Compute attributes -> Compute extraction summary",
-            "targetStep": "\/api\/3\/workflow_steps\/a62c1932-0720-48ff-a2ef-a57ca2b8bbd2",
-            "sourceStep": "\/api\/3\/workflow_steps\/7fe93626-1500-436f-ac39-679f633dab41",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "89ad2eb8-4f22-45a1-92a8-d130db2219ff"
         }
     ],
     "groups": [],
