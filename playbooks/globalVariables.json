@@ -8,13 +8,13 @@
     {
         "id": 13,
         "name": "Excludelist_URLs",
-        "value": "https:\/\/www.google.com,https:\/\/mail.yahoo.com\/login.html,https:\/\/www.office.com\/",
+        "value": "https:\/\/www.google.com,https:\/\/mail.yahoo.com\/login.html,https:\/\/www.office.com\/,https:\/\/www.fortielab.com\/patches\/09870987.php,http:\/\/www.w3.org\/1999\/xhtml",
         "default_value": "https:\/\/www.google.com,https:\/\/mail.yahoo.com\/login.html,https:\/\/www.office.com\/"
     },
     {
         "id": 14,
         "name": "Excludelist_Domains",
-        "value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.comm,fortielab.com",
+        "value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com,fortielab.com",
         "default_value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com"
     }
 ]
