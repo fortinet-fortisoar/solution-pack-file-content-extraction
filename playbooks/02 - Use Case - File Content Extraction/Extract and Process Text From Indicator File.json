@@ -115,10 +115,7 @@
                 "resource": {
                     "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
                     "value": "{{vars.item.value}}",
-                    "alerts": "{{vars.alerts_iris}}",
-                    "tenant": "\/api\/3\/tenants\/b3a700f7-00be-4ef9-90c6-3c8fe6e1be63",
                     "__replace": "false",
-                    "indicators": "{{vars.input.records[0]['@id']}}",
                     "indicatorStatus": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
                     "typeofindicator": "{{('IndicatorType' | picklist(vars.item.type))['@id']}}",
                     "enrichmentStatus": "\/api\/3\/picklists\/a6d9da29-27b1-4b8a-965d-8d91518540d5"
@@ -364,7 +361,7 @@
             "arguments": {
                 "resource": {
                     "__link": {
-                        "alerts": "{{vars.alerts_iris}}"
+                        "indicators": "{{vars.steps.Create_Indicators}}"
                     },
                     "description": "<table style=\"width:100%\">\n{%if vars.input.records[0].description%}\n<tr>\n<td>{{vars.input.records[0].description}}<\/td>\n<\/tr>\n{%endif%}\n<tr>\n<td>{{vars.file_attributes_html}}<\/td>\n<\/tr>\n<tr>\n<td>{{vars.file_content_html}}<\/td>\n<\/tr>\n<\/table>"
                 },
