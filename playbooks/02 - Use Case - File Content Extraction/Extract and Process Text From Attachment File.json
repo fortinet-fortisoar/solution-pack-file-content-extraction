@@ -23,7 +23,6 @@
                 "send_to": "noreply@example.com",
                 "send_from": "noreply@example.com",
                 "send_mail": "Disable",
-                "useMockOutput": "true",
                 "email_integration": ""
             },
             "status": null,
@@ -208,7 +207,6 @@
                 "version": "1.0.3",
                 "connector": "file-content-extraction",
                 "operation": "extract_text",
-                "mock_result": "{\n  \"data\": {\n    \"metadata\": {\n      \"X-Parsed-By\": [\n        \"org.apache.tika.parser.DefaultParser\",\n        \"org.apache.tika.parser.csv.TextAndCSVParser\"\n      ],\n      \"Content-Type\": \"text\/plain; charset=ISO-8859-1\",\n      \"Content-Encoding\": \"ISO-8859-1\",\n      \"X-TIKA:embedded_depth\": \"0\",\n      \"X-TIKA:content_handler\": \"ToTextContentHandler\",\n      \"X-TIKA:parse_time_millis\": \"2\"\n    },\n    \"extracted_text\": \"\\n\\n\\n\\n\\n\\n\\n\\n\\nThis is Demo File For File Content Extraction.\\n\"\n  },\n  \"status\": \"Success\",\n  \"message\": \"\",\n  \"operation\": null\n}",
                 "operationTitle": "Extract Text",
                 "pickFromTenant": false,
                 "step_variables": {
