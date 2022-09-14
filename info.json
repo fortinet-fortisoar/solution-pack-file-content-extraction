@@ -14,27 +14,39 @@
         }
     ],
     "prerequisite": null,
-    "publisher": "Community",
-    "description": "Playbooks to extract file metadata and content. The result is added to the record's description",
-    "help": null,
+    "publisher": "Fortinet SE",
+    "description": "Playbooks to extract file metadata and content. The result is added to the record's Description",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/README.md",
     "category": [
-        "Investigation",
-        "Enrichment"
+        "Enrichment",
+        "Investigation"
     ],
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
     "recordTags": [
         "Utility"
     ],
-    "fsrMinCompatibility": "7.2.1",
-    "date": "2022-09-14T08:28:04+00:00",
+    "fsrMinCompatibility": "7.2.0",
+    "date": "2022-09-14T11:31:51+00:00",
     "contents": {
         "playbooks": [
             {
-                "name": "02 - Use Case - File Content Extraction - 1.1.0"
+                "name": "02 - Use Case - File Content Extraction"
             }
         ],
         "globalVariables": [
+            {
+                "id": 7,
+                "name": "Server_fqhn",
+                "value": "master.fortisoar.in",
+                "default_value": "master.fortisoar.in"
+            },
+            {
+                "id": 21,
+                "name": "Excludelist_Hosts",
+                "value": "www.w3.org,www.fortielab.com",
+                "default_value": "www.fortielab.com"
+            },
             {
                 "id": 12,
                 "name": "Excludelist_IPs",
@@ -52,9 +64,19 @@
                 "name": "Excludelist_Domains",
                 "value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com,fortielab.com",
                 "default_value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com"
+            },
+            {
+                "id": 33,
+                "name": "Excludelist_Emails",
+                "value": "ena.vuk@bhtelecom.ba,sysadmin@bhtelecom.ba",
+                "default_value": "ena.vuk@bhtelecom.ba,sysadmin@bhtelecom.ba"
             }
         ],
         "connectors": [
+            {
+                "name": "Exchange",
+                "apiName": "exchange"
+            },
             {
                 "name": "File Content Extraction",
                 "apiName": "file-content-extraction"
