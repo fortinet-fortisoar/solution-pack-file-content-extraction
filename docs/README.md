@@ -11,7 +11,7 @@ With a manual trigger, you can use this playbook to extract:
 - File Metadata
 - File Content
 
-The extracted data is then posted on the File Preview field, all extracted indicators from the file will be attached to the attachment record
+The extracted data is then appended to the description field of the record, all extracted indicators from the file will be attached to the attachment file attachment and the alerts to which it is linked
 
 #### 2) Extract and Process Text From Indicators File **Playbook**
 Same as the attachment playbook except it operates on file based indicators as shown in the screenshot below:
