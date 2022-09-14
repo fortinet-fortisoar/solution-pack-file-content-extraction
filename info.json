@@ -9,14 +9,14 @@
             "name": "sOARFramework",
             "type": "solutionpack",
             "label": "SOAR Framework",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "minVersion": null
         }
     ],
     "prerequisite": null,
     "publisher": "Fortinet SE",
-    "description": "Playbooks to extract file metadata and content. The result is added to the record's Description",
-    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/README.md",
+    "description": "Playbooks to extract file metadata and content. The result is added to the record's Description. Notify the count of IOCs",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md",
     "category": [
         "Enrichment",
         "Investigation"

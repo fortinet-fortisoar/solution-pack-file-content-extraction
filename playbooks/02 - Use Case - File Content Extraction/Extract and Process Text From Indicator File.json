@@ -24,7 +24,7 @@
                 "config": "7a84747a-9f59-4326-afda-5a642835c6d6",
                 "params": {
                     "body": "<p><span style=\"letter-spacing: 0.76px;\">{{vars.steps.Summary.data['formatted_string']}}<\/span><\/p>\n<p>&nbsp;<\/p>",
-                    "subject": "Connector Indicator Ingested from Advisory",
+                    "subject": "Indicator Ingested from Advisory",
                     "iri_list": "",
                     "cc_recipients": "",
                     "to_recipients": "{{vars.send_to}}",
@@ -149,7 +149,7 @@
                     "from": "{{vars.send_from}}",
                     "type": "Manual Input",
                     "content": "<p>{{vars.steps.Summary.data['formatted_string']}}<\/p>\n<p>&nbsp;<\/p>",
-                    "subject": "Connector Indicator Ingested from Advisory",
+                    "subject": "Indicator Ingested from Advisory",
                     "iri_list": "",
                     "body_type": "Rich Text",
                     "file_name": "",
