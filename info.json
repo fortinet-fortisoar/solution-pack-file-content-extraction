@@ -1,6 +1,6 @@
 {
     "name": "fileContentExtraction",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "type": "solutionpack",
     "local": true,
     "label": "File Content Extraction",
@@ -31,7 +31,7 @@
     "contents": {
         "playbooks": [
             {
-                "name": "02 - Use Case - File Content Extraction - 1.0.1"
+                "name": "02 - Use Case - File Content Extraction - 1.1.0"
             }
         ],
         "globalVariables": [
