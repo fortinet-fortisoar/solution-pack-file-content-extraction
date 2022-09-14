@@ -1,7 +1,7 @@
 {
     "@context": "\/api\/3\/contexts\/WorkflowCollection",
     "@type": "WorkflowCollection",
-    "name": "02 - Use Case - File Content Extraction - 1.0.1",
+    "name": "02 - Use Case - File Content Extraction - 1.1.0",
     "description": "Use case playbooks for File Content Extraction Connectors",
     "visible": true,
     "image": null,
