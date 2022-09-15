@@ -256,9 +256,7 @@
             "description": "You can customize extraction by modifying indicator map in configuration step",
             "arguments": {
                 "ips": "{{globalVars.Excludelist_IPs.split(',')}}",
-                "host": "{{globalVars.Excludelist_Hosts.split(',')}}",
                 "urls": "{{globalVars.Excludelist_URLs.split(',')}}",
-                "email": "{{globalVars.Excludelist_Emails.split(',')}}",
                 "domains": "{{globalVars.Excludelist_Domains.split(',')}}",
                 "record_data": "{{(vars.input.records[0]['@id']+'?$relationships=true')|fromIRI}}",
                 "unified_iocs": "[]",
@@ -287,7 +285,9 @@
                 "resource": {
                     "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
                     "value": "{{vars.item.value}}",
+                    "alerts": "{{vars.alerts_iris}}",
                     "__replace": "true",
+                    "attachments": "{{vars.input.records[0]['@id']}}",
                     "indicatorStatus": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
                     "typeofindicator": "{{('IndicatorType' | picklist(vars.item.type))['@id']}}",
                     "enrichmentStatus": "\/api\/3\/picklists\/a6d9da29-27b1-4b8a-965d-8d91518540d5"
@@ -334,7 +334,7 @@
             "name": "Compute attributes",
             "description": null,
             "arguments": {
-                "whitelist": "{{vars.ips | union(vars.urls) |union(vars.domains) | union(vars.host) | union(vars.email)}}",
+                "whitelist": "{{vars.ips | union(vars.urls) |union(vars.domains) }}",
                 "alerts_iris": "{%set alert_data=(vars.record_data[\"@id\"]+\"\/alerts?&__selectFields=name\")|fromIRI%}{{alert_data[\"hydra:member\"]|json_query('[][\"@id\"][]')}}",
                 "__make_attr_table": "{%for k,v in vars.extraction_result.metadata.items()%}\n{%if k in [\"Creation-Date\",\"Last-Modified\",\"subject\",\"custom:Editor\",\"custom:Email\",\"Application-Name\"]%}\n{{vars.main_file_attributes.update({k.replace('-',' ').replace('custom:',' ').capitalize():v})}}\n{%else%}\n{{vars.rest_of_file_attributes.update({k.replace('-',' ').replace('custom:',' ').capitalize():v})}}\n{%endif%}\n{%endfor%}\n{{vars.list_of_lists.append(['Main File Attributes',vars.main_file_attributes])}}\n{{vars.list_of_lists.append(['Extended File Attributes',vars.rest_of_file_attributes])}}",
                 "extracted_indicators": "{{vars.steps.Extract_text|extract_artifacts}}"
@@ -364,12 +364,14 @@
         },
         {
             "@type": "WorkflowStep",
-            "name": "Update Record",
+            "name": "Update Attachment Description",
             "description": null,
             "arguments": {
                 "resource": {
                     "__link": {
-                        "indicators": "{{vars.steps.Create_Indicators}}"
+                        "recordTags": [
+                            "\/api\/3\/tags\/Advisory"
+                        ]
                     },
                     "description": "<table style=\"width:100%\">\n{%if vars.input.records[0].description%}\n<tr>\n<td>{{vars.input.records[0].description}}<\/td>\n<\/tr>\n{%endif%}\n<tr>\n<td>{{vars.file_attributes_html}}<\/td>\n<\/tr>\n<tr>\n<td>{{vars.file_content_html}}<\/td>\n<\/tr>\n<\/table>"
                 },

@@ -19,10 +19,7 @@ The **File Content Extraction** solution pack contains the following resources.
 | Excludelist_IPs | This contains the list of IPs to be excluded. |
 | Excludelist_URLs | This contains the list of URLs to be excluded. |
 | Excludelist_Domains | This contains the list of Domains to be excluded. |
-| Excludelist_Emails | This contains the list of Emails to be excluded. |
-| Excludelist_Hosts | This contains the list of Hosts to be excluded. |
 | Server_fqhn | This contain the Hostname of Machine. |
-> Please add ID and Hostname to your system `hosts` file as `Ip_address` `master.fortisoar.in`(default value of `Server_fqhn`)
 
 ## Playbook Collection
 

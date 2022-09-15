@@ -2,7 +2,8 @@
 
 * **Version**: 1.1.0
 * **Certified**: No
-* **Authored By**: Parag Khatavkar & Mahdi Naili (Fortinet SE)
+* **Authored By**: Parag Khatavkar & Mahdi Naili (Fortinet CSE)
+* **Publisher**: Community
 * **Compatible Version**: FortiSOAR v7.2.0 and above
 * [Release Notes](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/release_notes.md)
 

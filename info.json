@@ -18,16 +18,13 @@
     "description": "Playbooks to extract file metadata and content. The result is added to the record's description and notify the count of IOCs",
     "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md",
     "category": [
-        "Enrichment",
-        "Investigation"
+        "Investigation",
+        "Utilities"
     ],
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
-    "recordTags": [
-        "Utility"
-    ],
     "fsrMinCompatibility": "7.2.0",
-    "date": "2022-09-14T11:31:51+00:00",
+    "date": "2022-09-15T11:35:01+00:00",
     "contents": {
         "playbooks": [
             {

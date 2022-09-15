@@ -13,7 +13,7 @@ This solution pack can be simulated `Manually` on creation of record for modules
 
 ## Configuring the File Content Extraction Playbooks
 
-By default, the File Content Extraction works with the configuration shown in the following image.
+By default, the `File Content Extraction` works with the configuration shown in the following image.
 
 ![](./res/Config.png)
 
