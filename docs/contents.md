@@ -10,7 +10,7 @@ The **File Content Extraction** solution pack contains the following resources.
 |**Name**|**Description**|
 | :- | :- |
 | Exchange | The Exchange connector provides a robust, platform-independent, and simple interface for communicating with Microsoft Exchange 2007-2016 Server or Office 365 using Exchange Web Services (EWS). |
-| File Content Extraction | The connector uses is used to extract content, metadata and artifacts from over 1500 file types such as MS Office, PDF...etc |
+| File Content Extraction | File Content Extraction extracts content, metadata, and artefacts from over 1500 file types, including MS Office, PDF, and others. |
 
 ## Global Variable
 

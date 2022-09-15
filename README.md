@@ -4,6 +4,7 @@
 * **Certified**: No
 * **Authored By**: Parag Khatavkar & Mahdi Naili (Fortinet SE)
 * **Compatible Version**: FortiSOAR v7.2.0 and above
+* [Release Notes](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/release_notes.md)
 
 # Overview
 
@@ -14,5 +15,5 @@ Solution Pack examines Advisories sent by various organisations via email with a
 
 # Next Steps
 
-| [Installation](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/setup.md#installation) | [Configuration](https://github.com/solution-pack-file-content-extraction/blob/release/1.1.0/docs/setup.md#configuration) | [Usage](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/usage.md) | [Contents](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/contents.md) |
+| [Installation](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/setup.md#installation) | [Configuration](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/setup.md#configuration) | [Usage](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/usage.md) | [Contents](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/docs/contents.md) |
 |--------------------------------------------|----------------------------------------------|------------------------|------------------------------|
