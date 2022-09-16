@@ -9,52 +9,34 @@
             "name": "sOARFramework",
             "type": "solutionpack",
             "label": "SOAR Framework",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "minVersion": null
         }
     ],
     "prerequisite": null,
-    "publisher": "Community",
-    "description": "Playbooks to extract file metadata and content. The result is added to the record's description",
-    "help": null,
+    "publisher": "Fortinet SE",
+    "description": "Playbooks to extract file metadata and content. The result is added to the record's description and notify the count of IOCs",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md",
     "category": [
         "Investigation",
-        "Enrichment"
+        "Utilities"
     ],
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
-    "recordTags": [
-        "Utility"
-    ],
-    "fsrMinCompatibility": "7.2.1",
-    "date": "2022-09-14T08:28:04+00:00",
+    "fsrMinCompatibility": "7.2.0",
+    "date": "2022-09-15T11:35:01+00:00",
     "contents": {
         "playbooks": [
             {
-                "name": "02 - Use Case - File Content Extraction - 1.1.0"
+                "name": "02 - Use Case - File Content Extraction"
             }
         ],
-        "globalVariables": [
-            {
-                "id": 12,
-                "name": "Excludelist_IPs",
-                "value": "8.8.8.8,10.1.1.2",
-                "default_value": "8.8.8.8,10.1.1.2"
-            },
-            {
-                "id": 13,
-                "name": "Excludelist_URLs",
-                "value": "https://www.google.com,https://mail.yahoo.com/login.html,https://www.office.com/,https://www.fortielab.com/patches/09870987.php,http://www.w3.org/1999/xhtml",
-                "default_value": "https://www.google.com,https://mail.yahoo.com/login.html,https://www.office.com/"
-            },
-            {
-                "id": 14,
-                "name": "Excludelist_Domains",
-                "value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com,fortielab.com",
-                "default_value": "google.com,yahoo.com,fortinet.net,cybersponse.com,gmail.com,outlook.com,microsoft.com,fortinet.com,twitter.com,facebook.com,linkedin.com,instagram.com,fortiguard.com,forticloud.com"
-            }
-        ],
+        "globalVariables": [],
         "connectors": [
+            {
+                "name": "Exchange",
+                "apiName": "exchange"
+            },
             {
                 "name": "File Content Extraction",
                 "apiName": "file-content-extraction"
