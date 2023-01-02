@@ -1,0 +1,420 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "> Lookup Hash Codes Details",
+    "aliasName": null,
+    "tag": null,
+    "description": "Get Hash Details from CTIs",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [
+        "indicator"
+    ],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/da94c291-2600-4bad-bf39-22c3f144b916",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/9e13c460-f440-4d13-b874-6b14de297c29",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Get OTX Data",
+            "description": null,
+            "arguments": {
+                "name": "AlienVault-OTX",
+                "config": "735952dc-7088-499a-8f6e-2a011fb4fd8b",
+                "params": {
+                    "file_hash": "{{vars.indicator}}"
+                },
+                "version": "1.0.2",
+                "connector": "alienvault-otx_dev",
+                "operation": "get_file_reputation",
+                "operationTitle": "Get File Reputation",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "otx_sata": "{{vars.result.data}}"
+                }
+            },
+            "status": null,
+            "top": "165",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "25a58044-b59f-42cb-ab15-c71ac583c333"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set VT Attributes",
+            "description": null,
+            "arguments": {
+                "md5": "{{vars.indicators_list.append({\"type\":\"FileHash-MD5\",\"value\":vars.vt_data.attributes.md5 or None})}}",
+                "sha1": "{{vars.indicators_list.append({\"type\":\"FileHash-SHA1\",\"value\":vars.vt_data.attributes.sha1 or None})}}",
+                "sha256": "{{vars.indicators_list.append({\"type\":\"FileHash-SHA256\",\"value\":vars.vt_data.attributes.sha256 or None})}}"
+            },
+            "status": null,
+            "top": "560",
+            "left": "500",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "438cfe50-dcc9-4c5e-9820-8a420e39399b"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get VT Indicator Details",
+            "description": null,
+            "arguments": {
+                "name": "VirusTotal",
+                "config": "5f35350b-aa19-4a79-97e6-e9199dfc522e",
+                "params": {
+                    "file_hash": "{{vars.indicator}}",
+                    "relationships": ""
+                },
+                "version": "3.0.2",
+                "connector": "virustotal",
+                "operation": "file_reputation",
+                "operationTitle": "Get File Reputation",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "vt_data": "{{vars.result.data}}"
+                }
+            },
+            "status": null,
+            "top": "440",
+            "left": "500",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "44896f08-6787-4dfa-95c3-ff38aae9d917"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Reputation Not Found",
+            "description": null,
+            "arguments": {
+                "params": [],
+                "version": "3.2.1",
+                "connector": "cyops_utilities",
+                "operation": "no_op",
+                "operationTitle": "Utils: No Operation",
+                "step_variables": []
+            },
+            "status": null,
+            "top": "840",
+            "left": "500",
+            "stepType": "\/api\/3\/workflow_step_types\/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+            "group": null,
+            "uuid": "49d3075c-f598-47ce-b745-ba09a8b69693"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "OTX Reputation Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/7827e414-9924-484d-852e-441b87474492",
+                        "condition": "{{ (vars.otx_sata.analysis.analysis.info.results.md5|length) > 0 }}",
+                        "step_name": "Set OTX Attributes"
+                    },
+                    {
+                        "option": "no",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/44896f08-6787-4dfa-95c3-ff38aae9d917",
+                        "step_name": "Get VT Indicator Details"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "300",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "group": null,
+            "uuid": "6ca698be-98e3-4111-969a-c1e4db0fa218"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Link Records",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.indicators_iris | length > 0}}",
+                "for_each": {
+                    "item": "{{vars.indicators_iris}}",
+                    "__bulk": true,
+                    "parallel": false,
+                    "condition": "",
+                    "batch_size": 100
+                },
+                "resource": {
+                    "__link": {
+                        "indicators": "{{vars.indicators_iris | difference([vars.item])}}"
+                    }
+                },
+                "operation": "Append",
+                "collection": "{{vars.item}}",
+                "__recommend": [],
+                "collectionType": "\/api\/3\/indicators",
+                "fieldOperation": {
+                    "recordTags": "Append"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1240",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/b593663d-7d13-40ce-a3a3-96dece928722",
+            "group": null,
+            "uuid": "70cd17c4-c98c-4641-8bf5-c5602c27fcb7"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Compute Raw Indicators List",
+            "description": null,
+            "arguments": {
+                "raw_indicators_list": ""
+            },
+            "status": null,
+            "top": "840",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "71ed0bf3-4d6f-47fb-a25d-56d9830dd3e0"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Set OTX Attributes",
+            "description": null,
+            "arguments": {
+                "md5": "{{vars.indicators_list.append({\"type\":\"FileHash-MD5\",\"value\":vars.otx_sata.analysis.analysis.info.results.md5 or None})}}",
+                "sha1": "{{vars.indicators_list.append({\"type\":\"FileHash-SHA1\",\"value\":vars.otx_sata.analysis.analysis.info.results.sha1 or None})}}",
+                "sha256": "{{vars.indicators_list.append({\"type\":\"FileHash-SHA256\",\"value\":vars.otx_sata.analysis.analysis.info.results.sha256 or None})}}"
+            },
+            "status": null,
+            "top": "700",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "7827e414-9924-484d-852e-441b87474492"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "VT Reputation Found",
+            "description": null,
+            "arguments": {
+                "conditions": [
+                    {
+                        "option": "yes",
+                        "step_iri": "\/api\/3\/workflow_steps\/71ed0bf3-4d6f-47fb-a25d-56d9830dd3e0",
+                        "condition": "{{ vars.vt_data.attributes.sha256 | length > 0 }}",
+                        "step_name": "Compute Raw Indicators List"
+                    },
+                    {
+                        "option": "no",
+                        "default": true,
+                        "step_iri": "\/api\/3\/workflow_steps\/49d3075c-f598-47ce-b745-ba09a8b69693",
+                        "step_name": "Reputation Not Found"
+                    }
+                ]
+            },
+            "status": null,
+            "top": "700",
+            "left": "500",
+            "stepType": "\/api\/3\/workflow_step_types\/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+            "group": null,
+            "uuid": "930fa7a6-74d9-4761-bc65-38397d47c7e7"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "step_variables": {
+                    "input": {
+                        "params": []
+                    },
+                    "indicator": "{{vars.input.params.indicator}}",
+                    "indicators_list": "[]"
+                }
+            },
+            "status": null,
+            "top": "30",
+            "left": "310",
+            "stepType": "\/api\/3\/workflow_step_types\/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+            "group": null,
+            "uuid": "9e13c460-f440-4d13-b874-6b14de297c29"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicators",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.indicators_list | length > 0}}",
+                "for_each": {
+                    "item": "{{vars.indicators_list}}",
+                    "__bulk": true,
+                    "parallel": false,
+                    "condition": "",
+                    "batch_size": 100
+                },
+                "resource": {
+                    "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                    "value": "{{vars.item.value}}",
+                    "__replace": "true",
+                    "recordTags": [
+                        "\/api\/3\/tags\/CERT"
+                    ],
+                    "indicatorStatus": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                    "typeofindicator": "{{\"IndicatorType\" | picklist(vars.item.type, \"@id\")}}",
+                    "enrichmentStatus": "\/api\/3\/picklists\/a6d9da29-27b1-4b8a-965d-8d91518540d5"
+                },
+                "operation": "Append",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "980",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
+            "uuid": "e26b8b1f-0894-4c26-b662-566253a6b76e"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Get Indicators IDs",
+            "description": null,
+            "arguments": {
+                "indicators_iris": "{{vars.steps.Create_Indicators|json_query('[][\"@id\"][]')}}"
+            },
+            "status": null,
+            "top": "1100",
+            "left": "120",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "fa144eab-f5d0-4663-b5eb-967277afbead"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set VT Attributes -> VT Reputation Found",
+            "targetStep": "\/api\/3\/workflow_steps\/930fa7a6-74d9-4761-bc65-38397d47c7e7",
+            "sourceStep": "\/api\/3\/workflow_steps\/438cfe50-dcc9-4c5e-9820-8a420e39399b",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "42a5fc28-d461-46c7-bdec-65b0b2d8872e"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "VT Reputation Found -> Compute Raw Indicators List",
+            "targetStep": "\/api\/3\/workflow_steps\/71ed0bf3-4d6f-47fb-a25d-56d9830dd3e0",
+            "sourceStep": "\/api\/3\/workflow_steps\/930fa7a6-74d9-4761-bc65-38397d47c7e7",
+            "label": "yes",
+            "isExecuted": false,
+            "uuid": "fb4ee6e2-37ca-4fae-aaa4-0c19d1989ade"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "VT Reputation Found -> Reputation Not Found",
+            "targetStep": "\/api\/3\/workflow_steps\/49d3075c-f598-47ce-b745-ba09a8b69693",
+            "sourceStep": "\/api\/3\/workflow_steps\/930fa7a6-74d9-4761-bc65-38397d47c7e7",
+            "label": "no",
+            "isExecuted": false,
+            "uuid": "6f90bab2-db4f-4b9e-a9b6-0139bc3f2979"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "OTX Reputation Found -> Get VT Indicator Details",
+            "targetStep": "\/api\/3\/workflow_steps\/44896f08-6787-4dfa-95c3-ff38aae9d917",
+            "sourceStep": "\/api\/3\/workflow_steps\/6ca698be-98e3-4111-969a-c1e4db0fa218",
+            "label": "no",
+            "isExecuted": false,
+            "uuid": "43f5d224-1c3c-4c6c-ab20-ad1dd7b2df1a"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Get OTX Data",
+            "targetStep": "\/api\/3\/workflow_steps\/25a58044-b59f-42cb-ab15-c71ac583c333",
+            "sourceStep": "\/api\/3\/workflow_steps\/9e13c460-f440-4d13-b874-6b14de297c29",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "40e4df03-be97-4df3-b2b3-3f095b7ed6d4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get VT Indicator Details -> Copy of Set OTX Attributes",
+            "targetStep": "\/api\/3\/workflow_steps\/438cfe50-dcc9-4c5e-9820-8a420e39399b",
+            "sourceStep": "\/api\/3\/workflow_steps\/44896f08-6787-4dfa-95c3-ff38aae9d917",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "e051f6d4-7f4a-4fc6-aec7-79a53d64bf7c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get OTX Data -> OTX Reputation Found",
+            "targetStep": "\/api\/3\/workflow_steps\/6ca698be-98e3-4111-969a-c1e4db0fa218",
+            "sourceStep": "\/api\/3\/workflow_steps\/25a58044-b59f-42cb-ab15-c71ac583c333",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "5f7fbcfe-c7c9-4d77-aba2-879c5dcda345"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "OTX Reputation Found -> Set OTX Attributes",
+            "targetStep": "\/api\/3\/workflow_steps\/7827e414-9924-484d-852e-441b87474492",
+            "sourceStep": "\/api\/3\/workflow_steps\/6ca698be-98e3-4111-969a-c1e4db0fa218",
+            "label": "yes",
+            "isExecuted": false,
+            "uuid": "a9142664-baf6-496a-821b-5acf6a9afe90"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Set OTX Attributes -> Compute Raw Indicators List",
+            "targetStep": "\/api\/3\/workflow_steps\/71ed0bf3-4d6f-47fb-a25d-56d9830dd3e0",
+            "sourceStep": "\/api\/3\/workflow_steps\/7827e414-9924-484d-852e-441b87474492",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "b4de32da-6ec2-49ef-bc68-320b7586dfde"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Compute Raw Indicators List -> Create Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/e26b8b1f-0894-4c26-b662-566253a6b76e",
+            "sourceStep": "\/api\/3\/workflow_steps\/71ed0bf3-4d6f-47fb-a25d-56d9830dd3e0",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "80dcca4c-a9b2-4638-b983-f7c99b59743c"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Indicators -> Get Indicators IDs",
+            "targetStep": "\/api\/3\/workflow_steps\/fa144eab-f5d0-4663-b5eb-967277afbead",
+            "sourceStep": "\/api\/3\/workflow_steps\/e26b8b1f-0894-4c26-b662-566253a6b76e",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9f3809fb-f23b-4953-a0f3-5f58df00fa64"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Get Indicators IDs -> Link Records",
+            "targetStep": "\/api\/3\/workflow_steps\/70cd17c4-c98c-4641-8bf5-c5602c27fcb7",
+            "sourceStep": "\/api\/3\/workflow_steps\/fa144eab-f5d0-4663-b5eb-967277afbead",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "a0470fd0-cc72-4a97-b243-8ffe3864d975"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "e030213f-bde9-4070-8479-03ed303fa905",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "Enrichment",
+        "Use-Case"
+    ]
+}

@@ -1,5 +1,9 @@
 [
-    "Use-Case",
     "file-content-extraction",
-    "Advisory"
+    "Use-Case",
+    "Advisory",
+    "Enrichment",
+    "ThreatIntelManagement",
+    "Threat_Hunting",
+    "Use-Cae"
 ]

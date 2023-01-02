@@ -1,0 +1,364 @@
+{
+    "@type": "Workflow",
+    "triggerLimit": null,
+    "name": "Extract and Hunt Indicators on SIEM",
+    "aliasName": null,
+    "tag": null,
+    "description": "Extracts indicators from a file and checks for any match on SIEM Events",
+    "isActive": true,
+    "debug": true,
+    "singleRecordExecution": false,
+    "remoteExecutableFlag": false,
+    "parameters": [],
+    "synchronous": false,
+    "collection": "\/api\/3\/workflow_collections\/da94c291-2600-4bad-bf39-22c3f144b916",
+    "versions": [],
+    "triggerStep": "\/api\/3\/workflow_steps\/56f7e3d0-6a7c-40d7-a21d-4596781745fd",
+    "steps": [
+        {
+            "@type": "WorkflowStep",
+            "name": "Process Raw Data",
+            "description": null,
+            "arguments": {
+                "raw_data": "{{vars.raw_data.replace('[','').replace(']','')}}",
+                "unified_indicators": "[]"
+            },
+            "status": null,
+            "top": "435",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "0b742706-be46-43e3-8110-2fa484177285"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Process Indicators",
+            "description": null,
+            "arguments": {
+                "public_ips": "{{vars.indicators.IP| ipaddr('public') or []}}",
+                "private_ips": "{{vars.indicators.IP| ipaddr('private') or []}}",
+                "md5_hashcodes": "{{vars.indicators.MD5}}",
+                "shax_hashcodes": "{{vars.indicators.SHA1 + vars.indicators.SHA256}}"
+            },
+            "status": null,
+            "top": "705",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "209f732d-d336-4e45-bace-f815185dd6dc"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Lookup Hash code Details",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.shax_hashcodes|length > 0}}",
+                "for_each": {
+                    "item": "{{vars.shax_hashcodes}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "indicator": "{{vars.item}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "pass_input_record": false,
+                "workflowReference": "\/api\/3\/workflows\/e030213f-bde9-4070-8479-03ed303fa905"
+            },
+            "status": null,
+            "top": "840",
+            "left": "125",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
+            "uuid": "4ab86c8b-7845-416a-9eb3-7e0e8c8949a2"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Build Indicators List to Hunt",
+            "description": null,
+            "arguments": {
+                "indicators_to_hunt": "{{vars.md5_hashcodes+ vars.indicators.Host + vars.indicators.URL + vars.indicators.Filename + vars.public_ips}}"
+            },
+            "status": null,
+            "top": "840",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "4c900e1c-3d41-400e-b009-27aa50fff80c"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Start",
+            "description": null,
+            "arguments": {
+                "route": "65a71fd8-06b9-4ba6-a283-9aafe0803079",
+                "resources": [
+                    "attachments"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                    "input": {
+                        "params": [],
+                        "records": "{{vars.input.records}}"
+                    },
+                    "useMockOutput": "False"
+                },
+                "displayConditions": {
+                    "attachments": {
+                        "sort": [],
+                        "limit": 30,
+                        "logic": "AND",
+                        "filters": []
+                    }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+            },
+            "status": null,
+            "top": "30",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+            "group": null,
+            "uuid": "56f7e3d0-6a7c-40d7-a21d-4596781745fd"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Whitelist and Unify Indicators",
+            "description": null,
+            "arguments": {
+                "_tmp": "{% for entry in vars.indicators.unified_result%}\n{%if entry.value in vars.indicators_to_hunt and entry.value not in vars.whitelisted_indicators%}\n{{vars.unified_indicators.append(entry)}}\n{%endif%}\n{%endfor%}"
+            },
+            "status": null,
+            "top": "975",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "6678727a-1c0c-467d-a2e4-c476de9ddce4"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Configuration",
+            "description": null,
+            "arguments": {
+                "whitelisted_indicators": "{{globalVars.Excludelist_IPs.split(',')|union(globalVars.Excludelist_URLs.split(','))|union(globalVars.Excludelist_Domains.split(','))}}"
+            },
+            "status": null,
+            "top": "165",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "bacef683-18cc-43ea-a606-6e5a51bc5498"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Raw Data",
+            "description": null,
+            "arguments": {
+                "name": "File Content Extraction",
+                "params": {
+                    "file_iri": "{{vars.input.records[0].file['@id']}}",
+                    "html_output_format": false
+                },
+                "version": "1.0.3",
+                "connector": "file-content-extraction",
+                "operation": "extract_text",
+                "operationTitle": "Extract Text",
+                "pickFromTenant": false,
+                "step_variables": {
+                    "raw_data": "{{vars.result.data['extracted_text']}}"
+                }
+            },
+            "status": null,
+            "top": "300",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
+            "group": null,
+            "uuid": "c5ee9926-9d42-42d0-a945-9f225009d95a"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Extract Indicators",
+            "description": null,
+            "arguments": {
+                "indicators": "{{vars.raw_data|extract_artifacts}}"
+            },
+            "status": null,
+            "top": "570",
+            "left": "300",
+            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+            "group": null,
+            "uuid": "dad089e6-291c-4f70-b218-ceafc534d1bc"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Create Indicators",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.unified_indicators | length > 0}}",
+                "for_each": {
+                    "item": "{{vars.unified_indicators}}",
+                    "__bulk": true,
+                    "parallel": false,
+                    "condition": "",
+                    "batch_size": 100
+                },
+                "resource": {
+                    "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                    "value": "{{vars.item.value}}",
+                    "__replace": "true",
+                    "recordTags": [
+                        "\/api\/3\/tags\/CERT"
+                    ],
+                    "indicatorStatus": "\/api\/3\/picklists\/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                    "typeofindicator": "{{\"IndicatorType\" | picklist(vars.item.type, \"@id\")}}",
+                    "enrichmentStatus": "\/api\/3\/picklists\/a6d9da29-27b1-4b8a-965d-8d91518540d5"
+                },
+                "_showJson": true,
+                "operation": "Append",
+                "collection": "\/api\/3\/upsert\/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                    "recordTags": "Overwrite"
+                },
+                "step_variables": []
+            },
+            "status": null,
+            "top": "1110",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
+            "group": null,
+            "uuid": "e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47"
+        },
+        {
+            "@type": "WorkflowStep",
+            "name": "Hunt Indicators on Qradar",
+            "description": null,
+            "arguments": {
+                "when": "{{vars.steps.Create_Indicators|length > 0}}",
+                "for_each": {
+                    "item": "{{vars.steps.Create_Indicators}}",
+                    "parallel": false,
+                    "condition": ""
+                },
+                "arguments": {
+                    "indicator_data": "{{vars.item}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "pass_input_record": false,
+                "workflowReference": "\/api\/3\/workflows\/b96157e1-3c56-4bf4-bb2c-3d682568808f"
+            },
+            "status": null,
+            "top": "1245",
+            "left": "475",
+            "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+            "group": null,
+            "uuid": "ef246be7-0de9-4d16-8fc0-8ad99f51f500"
+        }
+    ],
+    "routes": [
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Raw Data -> Get Raw Indicator Data",
+            "targetStep": "\/api\/3\/workflow_steps\/0b742706-be46-43e3-8110-2fa484177285",
+            "sourceStep": "\/api\/3\/workflow_steps\/c5ee9926-9d42-42d0-a945-9f225009d95a",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "dadf8377-187c-4cf3-bdb2-0afbbc8152d6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Process Raw Data -> Compute Raw Indicators List",
+            "targetStep": "\/api\/3\/workflow_steps\/dad089e6-291c-4f70-b218-ceafc534d1bc",
+            "sourceStep": "\/api\/3\/workflow_steps\/0b742706-be46-43e3-8110-2fa484177285",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "4b1acdf5-aa74-4ecc-9141-1487e10a2682"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Indicators -> Copy of Build Indicators List to Hunt",
+            "targetStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
+            "sourceStep": "\/api\/3\/workflow_steps\/dad089e6-291c-4f70-b218-ceafc534d1bc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "9be47a41-d0bb-47aa-819b-af2bb9c56c5d"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Process Indicators -> Build Indicators List to Hunt",
+            "targetStep": "\/api\/3\/workflow_steps\/4c900e1c-3d41-400e-b009-27aa50fff80c",
+            "sourceStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "67745143-acc5-4d13-952c-387be1da8918"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Build Indicators List to Hunt -> Copy 1 of Build Indicators List to Hunt",
+            "targetStep": "\/api\/3\/workflow_steps\/6678727a-1c0c-467d-a2e4-c476de9ddce4",
+            "sourceStep": "\/api\/3\/workflow_steps\/4c900e1c-3d41-400e-b009-27aa50fff80c",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3775c663-e2fa-48bf-bb32-8fa2cbcdbefb"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Unified Indicators List -> Create Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47",
+            "sourceStep": "\/api\/3\/workflow_steps\/6678727a-1c0c-467d-a2e4-c476de9ddce4",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "ebd9254d-1fa5-483c-84cf-edf392d47f86"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Process Indicators -> Lookup Hash code Details",
+            "targetStep": "\/api\/3\/workflow_steps\/4ab86c8b-7845-416a-9eb3-7e0e8c8949a2",
+            "sourceStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "3e7b2eb6-f912-4084-8a15-a2d7ed0b12a4"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Create Indicators -> Hunt Indicators on Qradar",
+            "targetStep": "\/api\/3\/workflow_steps\/ef246be7-0de9-4d16-8fc0-8ad99f51f500",
+            "sourceStep": "\/api\/3\/workflow_steps\/e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "19e2dbb1-b88b-47c3-93db-e5b87aef02c6"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Start -> Configuration",
+            "targetStep": "\/api\/3\/workflow_steps\/bacef683-18cc-43ea-a606-6e5a51bc5498",
+            "sourceStep": "\/api\/3\/workflow_steps\/56f7e3d0-6a7c-40d7-a21d-4596781745fd",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "d4c38d00-bea6-47dd-b3b3-36247d6da347"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Configuration -> Extract Raw Data",
+            "targetStep": "\/api\/3\/workflow_steps\/c5ee9926-9d42-42d0-a945-9f225009d95a",
+            "sourceStep": "\/api\/3\/workflow_steps\/bacef683-18cc-43ea-a606-6e5a51bc5498",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "edc7563d-a2f0-4701-b54a-34666632e254"
+        }
+    ],
+    "groups": [],
+    "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+    "uuid": "eeb560c7-11b7-418b-aaab-f9d9a54a6e00",
+    "owners": [],
+    "isPrivate": false,
+    "deletedAt": null,
+    "recordTags": [
+        "ThreatIntelManagement",
+        "file-content-extraction",
+        "Use-Case"
+    ]
+}
