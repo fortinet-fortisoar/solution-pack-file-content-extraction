@@ -513,8 +513,8 @@
     "isPrivate": false,
     "deletedAt": null,
     "recordTags": [
-        "Use-Case",
         "file-content-extraction",
+        "Use-Case",
         "Advisory"
     ]
 }

@@ -1,0 +1,21 @@
+[
+    {
+        "@type": "Attachment",
+        "filePreview": null,
+        "name": "sample.docx",
+        "description": null,
+        "file": "\/api\/3\/files\/887113c0-306d-446d-9645-e14380c33718",
+        "type": null,
+        "uuid": "3d1de4ff-0562-4c15-a407-9a3f570ff05b",
+        "createUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "createDate": 1672323187.911002,
+        "modifyUser": "\/api\/3\/people\/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "modifyDate": 1672323187.911002,
+        "tenant": "\/api\/3\/tenants\/b3a700f7-00be-4ef9-90c6-3c8fe6e1be63",
+        "conflict": false,
+        "tenantRecordId": 50,
+        "id": 50,
+        "recordTags": [],
+        "assignee": ""
+    }
+]
