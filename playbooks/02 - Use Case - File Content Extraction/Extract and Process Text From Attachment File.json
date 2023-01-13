@@ -519,8 +519,8 @@
     "isPrivate": false,
     "deletedAt": null,
     "recordTags": [
-        "file-content-extraction",
+        "Advisory",
         "Use-Case",
-        "Advisory"
+        "File-Content-Extraction"
     ]
 }
