@@ -1,4 +1,4 @@
-| [Home](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md) |
+| [Home](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md) |
 |--------------------------------------------|
 
 # Installation
@@ -22,3 +22,7 @@ For optimal performance of `File Content Extraction` solution pack, you can inst
 
 - **Exchange**: To configure and use refer to [Configuring Exchange Connector](https://docs.fortinet.com/document/fortisoar/4.0.0/exchange/295/exchange-v4-0-0)
 - **File Content Extraction**: To configure and use refer to [Configuring File Content Extraction Connector](https://docs.fortinet.com/document/fortisoar/1.0.3/file-content-extraction/285/file-content-extraction-v1-0-3)
+- **IBM QRadar**: To configure and use refer to [Configuring IBM QRadar Connector](https://docs.fortinet.com/document/fortisoar/1.5.1/ibm-qradar/319/ibm-qradar-v1-5-1)
+- **AlienVault-OTX**: To configure and use refer to [Configuring AlienVault-OTX Connector](https://docs.fortinet.com/document/fortisoar/1.0.2/alienvault-otx/1/alienvault-otx-v1-0-2)
+- **VirusTotal**: To configure and use refer to [Configuring VirusTotal Connector](https://docs.fortinet.com/document/fortisoar/3.0.2/virustotal/374/virustotal-v3-0-2)
+

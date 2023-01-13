@@ -24,13 +24,12 @@
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
     "recordTags": [
+        "ThreatIntelManagement",
         "Enrichment",
-        "Threat Hunting",
-        "ThreatIntelManagement"
+        "Threat Hunting"
     ],
-
     "fsrMinCompatibility": "7.2.0",
-    "date": "2023-01-12T14:53:06+00:00",
+    "date": "2023-01-13T10:32:46+00:00",
     "contents": {
         "playbooks": [
             {

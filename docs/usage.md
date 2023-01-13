@@ -1,4 +1,4 @@
-| [Home](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md) |
+| [Home](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md) |
 |--------------------------------------------|
 
 # Usage
@@ -32,6 +32,17 @@ To make changes:
 | `send_to` | Mandatory field if email need to be send, otherwise Optional. Contains the email address of the intended recipients. To send emails to multiple users separate each email address with a comma. For example, `noreply@example.com`, `demo@example.com` |
 | `send_from` | Optional field. Contains the sender's email address. It accepts only one email address from which the recipients receive the email. For example, `noreply@example.com` |
 | `email_integration` | Optional Field. Values can be `SMTP` or `Exchange`. It is the email server type that is used for sending the email to the specified email recipients. If left blank, it uses the `SMTP` email server type. |
+
+## Hunt Indicator On SIEM
+
+Refer to the scenario below to hunt an indicator on SIEM and obtain the hash code details.
+
+For demo mode:
+1. Set global variable *Demo Mode* as true.
+2. Execute `Extract and Hunt Indicators on SIEM` playbook over attachment record `Sample File`.
+
+For Real Scenario:
+1. Set global variable *Demo Mode* as false.
 
 ## Sample Email Notification
 The following image shows an example notification email, count of IOCs:
