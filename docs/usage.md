@@ -1,4 +1,4 @@
-| [Home](https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md) |
+| [Home](../README.md) |
 |--------------------------------------------|
 
 # Usage
