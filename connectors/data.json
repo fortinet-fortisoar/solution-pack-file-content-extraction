@@ -1,5 +1,16 @@
 [
     {
+        "name": "alienvault-otx",
+        "label": "AlienVault-OTX",
+        "category": "Threat Intelligence",
+        "description": "AlienVault-OTX is an open source of Indicators of Compromise (IOCs) supported by the community.This connector provides actions Get IP Reputation, Create Pulse, Get Domain Reputation, etc",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    },
+    {
         "name": "exchange",
         "label": "Exchange",
         "category": "Email Server",
@@ -15,6 +26,17 @@
         "label": "File Content Extraction",
         "category": "utilities",
         "description": "Utility to Extract Text, Artifacts and Metadata from almost any file. Internet connectivity is required for the connector to download dependent packages",
+        "publisher": null,
+        "operation_roles": [],
+        "configurations": [],
+        "dataImports": [],
+        "install_mode": "rpm"
+    },
+    {
+        "name": "qradar",
+        "label": "IBM QRadar",
+        "category": "Analytics and SIEM",
+        "description": "IBM QRadar is an enterprise security information and event management (SIEM) product. Fortinet FortiSOSR connector for IBM QRadar allows user to invoke QRadar API, perform Ariel Queries and operations like Get Offense,related events,update and close offenses.",
         "publisher": null,
         "operation_roles": [],
         "configurations": [],
