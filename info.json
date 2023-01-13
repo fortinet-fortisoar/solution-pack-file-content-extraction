@@ -14,8 +14,8 @@
         }
     ],
     "prerequisite": null,
-    "publisher": "Fortinet Systems Enringeering",
-    "description": "Playbooks to extract file indicators, metadata and content. Hunt indicators on SIEM and notify analysts",
+    "publisher": "Fortinet SE",
+    "description": "Playbooks for extracting file metadata and content. The result is added to the record's description and notifies the number of IOCs. Hunt for indicators on SIEM.",
     "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md",
     "category": [
         "Investigation",
@@ -28,8 +28,9 @@
         "Threat Hunting",
         "ThreatIntelManagement"
     ],
+
     "fsrMinCompatibility": "7.2.0",
-    "date": "2022-12-29T14:31:01+00:00",
+    "date": "2023-01-12T14:53:06+00:00",
     "contents": {
         "playbooks": [
             {
@@ -39,12 +40,20 @@
         "globalVariables": [],
         "connectors": [
             {
+                "name": "AlienVault-OTX",
+                "apiName": "alienvault-otx"
+            },
+            {
                 "name": "Exchange",
                 "apiName": "exchange"
             },
             {
                 "name": "File Content Extraction",
                 "apiName": "file-content-extraction"
+            },
+            {
+                "name": "IBM QRadar",
+                "apiName": "qradar"
             }
         ],
         "recordSets": [

@@ -13,23 +13,8 @@
     "synchronous": false,
     "collection": "\/api\/3\/workflow_collections\/da94c291-2600-4bad-bf39-22c3f144b916",
     "versions": [],
-    "triggerStep": "\/api\/3\/workflow_steps\/56f7e3d0-6a7c-40d7-a21d-4596781745fd",
+    "triggerStep": "\/api\/3\/workflow_steps\/c72f1610-8175-4222-be57-2fcd0f2454e7",
     "steps": [
-        {
-            "@type": "WorkflowStep",
-            "name": "Process Raw Data",
-            "description": null,
-            "arguments": {
-                "raw_data": "{{vars.raw_data.replace('[','').replace(']','')}}",
-                "unified_indicators": "[]"
-            },
-            "status": null,
-            "top": "435",
-            "left": "300",
-            "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-            "group": null,
-            "uuid": "0b742706-be46-43e3-8110-2fa484177285"
-        },
         {
             "@type": "WorkflowStep",
             "name": "Process Indicators",
@@ -41,18 +26,18 @@
                 "shax_hashcodes": "{{vars.indicators.SHA1 + vars.indicators.SHA256}}"
             },
             "status": null,
-            "top": "705",
+            "top": "570",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "209f732d-d336-4e45-bace-f815185dd6dc"
+            "uuid": "50d0cc42-9801-461c-8500-9f3d9537caea"
         },
         {
             "@type": "WorkflowStep",
             "name": "Lookup Hash code Details",
             "description": null,
             "arguments": {
-                "when": "{{vars.shax_hashcodes|length > 0}}",
+                "when": "{{vars.shax_hashcodes | length > 0}}",
                 "for_each": {
                     "item": "{{vars.shax_hashcodes}}",
                     "parallel": false,
@@ -64,14 +49,14 @@
                 "apply_async": false,
                 "step_variables": [],
                 "pass_input_record": false,
-                "workflowReference": "\/api\/3\/workflows\/e030213f-bde9-4070-8479-03ed303fa905"
+                "workflowReference": "\/api\/3\/workflows\/6e596b7f-704c-45b7-a6f3-845be3f0c09d"
             },
             "status": null,
-            "top": "840",
+            "top": "705",
             "left": "125",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
             "group": null,
-            "uuid": "4ab86c8b-7845-416a-9eb3-7e0e8c8949a2"
+            "uuid": "5072b5ff-5cf8-413b-b95e-7298f3e5fe5a"
         },
         {
             "@type": "WorkflowStep",
@@ -81,18 +66,18 @@
                 "indicators_to_hunt": "{{vars.md5_hashcodes+ vars.indicators.Host + vars.indicators.URL + vars.indicators.Filename + vars.public_ips}}"
             },
             "status": null,
-            "top": "840",
+            "top": "705",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "4c900e1c-3d41-400e-b009-27aa50fff80c"
+            "uuid": "5ba4d4ec-a042-42e6-95be-9700291a58f3"
         },
         {
             "@type": "WorkflowStep",
             "name": "Start",
             "description": null,
             "arguments": {
-                "route": "65a71fd8-06b9-4ba6-a283-9aafe0803079",
+                "route": "9f7d13fa-5999-48b1-be43-44d4cf039f8d",
                 "resources": [
                     "attachments"
                 ],
@@ -101,8 +86,7 @@
                     "input": {
                         "params": [],
                         "records": "{{vars.input.records}}"
-                    },
-                    "useMockOutput": "False"
+                    }
                 },
                 "displayConditions": {
                     "attachments": {
@@ -121,27 +105,28 @@
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
             "group": null,
-            "uuid": "56f7e3d0-6a7c-40d7-a21d-4596781745fd"
+            "uuid": "c72f1610-8175-4222-be57-2fcd0f2454e7"
         },
         {
             "@type": "WorkflowStep",
             "name": "Whitelist and Unify Indicators",
             "description": null,
             "arguments": {
-                "_tmp": "{% for entry in vars.indicators.unified_result%}\n{%if entry.value in vars.indicators_to_hunt and entry.value not in vars.whitelisted_indicators%}\n{{vars.unified_indicators.append(entry)}}\n{%endif%}\n{%endfor%}"
+                "_tmp": "{% for entry in vars.indicators.unified_result %}\n{% if entry.value in vars.indicators_to_hunt and entry.value not in vars.whitelisted_indicators %}\n{{vars.unified_indicators.append(entry)}}{% endif %}{% endfor %}"
             },
             "status": null,
-            "top": "975",
+            "top": "840",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "6678727a-1c0c-467d-a2e4-c476de9ddce4"
+            "uuid": "6aed4dec-9513-4baa-a3d6-567745fed8fe"
         },
         {
             "@type": "WorkflowStep",
             "name": "Configuration",
             "description": null,
             "arguments": {
+                "unified_indicators": "[]",
                 "whitelisted_indicators": "{{globalVars.Excludelist_IPs.split(',')|union(globalVars.Excludelist_URLs.split(','))|union(globalVars.Excludelist_Domains.split(','))}}"
             },
             "status": null,
@@ -149,7 +134,7 @@
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "bacef683-18cc-43ea-a606-6e5a51bc5498"
+            "uuid": "e7dad3fd-2978-4817-88cb-662e1ba2ec37"
         },
         {
             "@type": "WorkflowStep",
@@ -167,7 +152,7 @@
                 "operationTitle": "Extract Text",
                 "pickFromTenant": false,
                 "step_variables": {
-                    "raw_data": "{{vars.result.data['extracted_text']}}"
+                    "raw_data": "{{vars.result.data['extracted_text'].replace('[','').replace(']','')}}"
                 }
             },
             "status": null,
@@ -175,21 +160,21 @@
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/0bfed618-0316-11e7-93ae-92361f002671",
             "group": null,
-            "uuid": "c5ee9926-9d42-42d0-a945-9f225009d95a"
+            "uuid": "1137c990-4151-4207-86dd-6a548f525314"
         },
         {
             "@type": "WorkflowStep",
             "name": "Extract Indicators",
             "description": null,
             "arguments": {
-                "indicators": "{{vars.raw_data|extract_artifacts}}"
+                "indicators": "{{vars.raw_data | extract_artifacts}}"
             },
             "status": null,
-            "top": "570",
+            "top": "435",
             "left": "300",
             "stepType": "\/api\/3\/workflow_step_types\/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
             "group": null,
-            "uuid": "dad089e6-291c-4f70-b218-ceafc534d1bc"
+            "uuid": "a4862812-555d-42ad-a735-992cf41219fb"
         },
         {
             "@type": "WorkflowStep",
@@ -225,18 +210,18 @@
                 "step_variables": []
             },
             "status": null,
-            "top": "1110",
+            "top": "975",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/2597053c-e718-44b4-8394-4d40fe26d357",
             "group": null,
-            "uuid": "e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47"
+            "uuid": "7a6e62ea-aa23-41c4-b9a5-95b36fe64e4f"
         },
         {
             "@type": "WorkflowStep",
             "name": "Hunt Indicators on Qradar",
             "description": null,
             "arguments": {
-                "when": "{{vars.steps.Create_Indicators|length > 0}}",
+                "when": "{{vars.steps.Create_Indicators | length > 0}}",
                 "for_each": {
                     "item": "{{vars.steps.Create_Indicators}}",
                     "parallel": false,
@@ -248,117 +233,108 @@
                 "apply_async": false,
                 "step_variables": [],
                 "pass_input_record": false,
-                "workflowReference": "\/api\/3\/workflows\/b96157e1-3c56-4bf4-bb2c-3d682568808f"
+                "workflowReference": "\/api\/3\/workflows\/a6405ff1-ec70-4244-bea3-184ab4f45a54"
             },
             "status": null,
-            "top": "1245",
+            "top": "1110",
             "left": "475",
             "stepType": "\/api\/3\/workflow_step_types\/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
             "group": null,
-            "uuid": "ef246be7-0de9-4d16-8fc0-8ad99f51f500"
+            "uuid": "1208a4f5-d616-4fd1-9c9f-06eaf5849841"
         }
     ],
     "routes": [
         {
             "@type": "WorkflowRoute",
-            "name": "Extract Raw Data -> Get Raw Indicator Data",
-            "targetStep": "\/api\/3\/workflow_steps\/0b742706-be46-43e3-8110-2fa484177285",
-            "sourceStep": "\/api\/3\/workflow_steps\/c5ee9926-9d42-42d0-a945-9f225009d95a",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "dadf8377-187c-4cf3-bdb2-0afbbc8152d6"
-        },
-        {
-            "@type": "WorkflowRoute",
-            "name": "Process Raw Data -> Compute Raw Indicators List",
-            "targetStep": "\/api\/3\/workflow_steps\/dad089e6-291c-4f70-b218-ceafc534d1bc",
-            "sourceStep": "\/api\/3\/workflow_steps\/0b742706-be46-43e3-8110-2fa484177285",
-            "label": null,
-            "isExecuted": false,
-            "uuid": "4b1acdf5-aa74-4ecc-9141-1487e10a2682"
-        },
-        {
-            "@type": "WorkflowRoute",
             "name": "Extract Indicators -> Copy of Build Indicators List to Hunt",
-            "targetStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
-            "sourceStep": "\/api\/3\/workflow_steps\/dad089e6-291c-4f70-b218-ceafc534d1bc",
+            "targetStep": "\/api\/3\/workflow_steps\/50d0cc42-9801-461c-8500-9f3d9537caea",
+            "sourceStep": "\/api\/3\/workflow_steps\/a4862812-555d-42ad-a735-992cf41219fb",
             "label": null,
             "isExecuted": false,
-            "uuid": "9be47a41-d0bb-47aa-819b-af2bb9c56c5d"
+            "uuid": "def036c4-a775-4156-99c0-3cbf18c7ac65"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Process Indicators -> Build Indicators List to Hunt",
-            "targetStep": "\/api\/3\/workflow_steps\/4c900e1c-3d41-400e-b009-27aa50fff80c",
-            "sourceStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
+            "targetStep": "\/api\/3\/workflow_steps\/5ba4d4ec-a042-42e6-95be-9700291a58f3",
+            "sourceStep": "\/api\/3\/workflow_steps\/50d0cc42-9801-461c-8500-9f3d9537caea",
             "label": null,
             "isExecuted": false,
-            "uuid": "67745143-acc5-4d13-952c-387be1da8918"
+            "uuid": "12bcffd3-6502-4784-913b-60fe3911fbe7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Build Indicators List to Hunt -> Copy 1 of Build Indicators List to Hunt",
-            "targetStep": "\/api\/3\/workflow_steps\/6678727a-1c0c-467d-a2e4-c476de9ddce4",
-            "sourceStep": "\/api\/3\/workflow_steps\/4c900e1c-3d41-400e-b009-27aa50fff80c",
+            "targetStep": "\/api\/3\/workflow_steps\/6aed4dec-9513-4baa-a3d6-567745fed8fe",
+            "sourceStep": "\/api\/3\/workflow_steps\/5ba4d4ec-a042-42e6-95be-9700291a58f3",
             "label": null,
             "isExecuted": false,
-            "uuid": "3775c663-e2fa-48bf-bb32-8fa2cbcdbefb"
+            "uuid": "5b185e34-b627-4c08-847d-71be371f1800"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Unified Indicators List -> Create Indicators",
-            "targetStep": "\/api\/3\/workflow_steps\/e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47",
-            "sourceStep": "\/api\/3\/workflow_steps\/6678727a-1c0c-467d-a2e4-c476de9ddce4",
+            "targetStep": "\/api\/3\/workflow_steps\/7a6e62ea-aa23-41c4-b9a5-95b36fe64e4f",
+            "sourceStep": "\/api\/3\/workflow_steps\/6aed4dec-9513-4baa-a3d6-567745fed8fe",
             "label": null,
             "isExecuted": false,
-            "uuid": "ebd9254d-1fa5-483c-84cf-edf392d47f86"
+            "uuid": "6c4c7387-832a-40c6-9306-7528570bfb42"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Process Indicators -> Lookup Hash code Details",
-            "targetStep": "\/api\/3\/workflow_steps\/4ab86c8b-7845-416a-9eb3-7e0e8c8949a2",
-            "sourceStep": "\/api\/3\/workflow_steps\/209f732d-d336-4e45-bace-f815185dd6dc",
+            "targetStep": "\/api\/3\/workflow_steps\/5072b5ff-5cf8-413b-b95e-7298f3e5fe5a",
+            "sourceStep": "\/api\/3\/workflow_steps\/50d0cc42-9801-461c-8500-9f3d9537caea",
             "label": null,
             "isExecuted": false,
-            "uuid": "3e7b2eb6-f912-4084-8a15-a2d7ed0b12a4"
+            "uuid": "163efd61-c0a0-4343-9f1f-bbb26bfc16c4"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Create Indicators -> Hunt Indicators on Qradar",
-            "targetStep": "\/api\/3\/workflow_steps\/ef246be7-0de9-4d16-8fc0-8ad99f51f500",
-            "sourceStep": "\/api\/3\/workflow_steps\/e62e2070-f2b0-4346-b2eb-fdaf5ddd7c47",
+            "targetStep": "\/api\/3\/workflow_steps\/1208a4f5-d616-4fd1-9c9f-06eaf5849841",
+            "sourceStep": "\/api\/3\/workflow_steps\/7a6e62ea-aa23-41c4-b9a5-95b36fe64e4f",
             "label": null,
             "isExecuted": false,
-            "uuid": "19e2dbb1-b88b-47c3-93db-e5b87aef02c6"
+            "uuid": "4ba7e0d0-aedb-4cc3-965a-d0588fda97d3"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Start -> Configuration",
-            "targetStep": "\/api\/3\/workflow_steps\/bacef683-18cc-43ea-a606-6e5a51bc5498",
-            "sourceStep": "\/api\/3\/workflow_steps\/56f7e3d0-6a7c-40d7-a21d-4596781745fd",
+            "targetStep": "\/api\/3\/workflow_steps\/e7dad3fd-2978-4817-88cb-662e1ba2ec37",
+            "sourceStep": "\/api\/3\/workflow_steps\/c72f1610-8175-4222-be57-2fcd0f2454e7",
             "label": null,
             "isExecuted": false,
-            "uuid": "d4c38d00-bea6-47dd-b3b3-36247d6da347"
+            "uuid": "5b238026-e725-4d06-875c-b06364d59cd7"
         },
         {
             "@type": "WorkflowRoute",
             "name": "Configuration -> Extract Raw Data",
-            "targetStep": "\/api\/3\/workflow_steps\/c5ee9926-9d42-42d0-a945-9f225009d95a",
-            "sourceStep": "\/api\/3\/workflow_steps\/bacef683-18cc-43ea-a606-6e5a51bc5498",
+            "targetStep": "\/api\/3\/workflow_steps\/1137c990-4151-4207-86dd-6a548f525314",
+            "sourceStep": "\/api\/3\/workflow_steps\/e7dad3fd-2978-4817-88cb-662e1ba2ec37",
             "label": null,
             "isExecuted": false,
-            "uuid": "edc7563d-a2f0-4701-b54a-34666632e254"
+            "uuid": "bf6d9a6b-673b-450f-ac17-ecd2c40e18bf"
+        },
+        {
+            "@type": "WorkflowRoute",
+            "name": "Extract Raw Data -> Extract Indicators",
+            "targetStep": "\/api\/3\/workflow_steps\/a4862812-555d-42ad-a735-992cf41219fb",
+            "sourceStep": "\/api\/3\/workflow_steps\/1137c990-4151-4207-86dd-6a548f525314",
+            "label": null,
+            "isExecuted": false,
+            "uuid": "66ce9b5e-fc39-441f-8a3a-7a44fa4da2a6"
         }
     ],
     "groups": [],
     "priority": "\/api\/3\/picklists\/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-    "uuid": "eeb560c7-11b7-418b-aaab-f9d9a54a6e00",
+    "uuid": "3e434aee-9bbb-4a10-8b02-24f8f56c8a92",
     "owners": [],
     "isPrivate": false,
     "deletedAt": null,
     "recordTags": [
         "ThreatIntelManagement",
-        "file-content-extraction",
-        "Use-Case"
+        "Use-Case",
+        "File-Content-Extraction"
     ]
 }

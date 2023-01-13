@@ -1,8 +1,8 @@
 [
-    "file-content-extraction",
-    "Use-Case",
     "Advisory",
-    "Enrichment",
-    "Threat-Intel-Management",
-    "Threat-Hunting"
+    "Use-Case",
+    "Threat-Hunting",
+    "File-Content-Extraction",
+    "ThreatIntelManagement",
+    "Enrichment"
 ]

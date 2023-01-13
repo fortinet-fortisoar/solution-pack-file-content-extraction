@@ -1,12 +1,12 @@
 {
     "@context": "\/api\/3\/contexts\/File",
     "@type": "File",
-    "uuid": "887113c0-306d-446d-9645-e14380c33718",
+    "uuid": "87915d17-6006-46f7-83f1-51a910d23004",
     "assignee": "",
-    "id": "887113c0-306d-446d-9645-e14380c33718",
+    "id": "87915d17-6006-46f7-83f1-51a910d23004",
     "filename": "sample.docx",
     "mimeType": "application\/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "uploadDate": 1672323185.815836,
+    "uploadDate": 1673533355.456309,
     "size": 12900,
     "thumbnail": null,
     "metadata": []
