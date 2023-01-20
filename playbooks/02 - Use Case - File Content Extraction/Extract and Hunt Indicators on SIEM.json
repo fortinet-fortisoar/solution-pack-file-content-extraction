@@ -192,6 +192,7 @@
                 "resource": {
                     "tlp": "\/api\/3\/picklists\/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
                     "value": "{{vars.item.value}}",
+                    "__link": {"attachments": "{{vars.input.records[0]['@id']}}"},
                     "__replace": "true",
                     "recordTags": [
                         "\/api\/3\/tags\/CERT"
