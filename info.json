@@ -18,8 +18,8 @@
     "description": "Playbooks for extracting file metadata and content. The result is added to the record's description and notifies the number of IOCs. Hunt for indicators on SIEM.",
     "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md",
     "category": [
-        "Investigation",
-        "Utilities"
+        "Utilities",
+        "Investigation"
     ],
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
@@ -29,7 +29,7 @@
         "Threat Hunting"
     ],
     "fsrMinCompatibility": "7.2.0",
-    "date": "2023-01-13T10:32:46+00:00",
+    "date": "2023-01-20T07:53:06+00:00",
     "contents": {
         "playbooks": [
             {

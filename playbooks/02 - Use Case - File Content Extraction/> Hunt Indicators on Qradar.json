@@ -5,7 +5,7 @@
     "aliasName": null,
     "tag": null,
     "description": "Hunt indicator value on Qradar for the past X Minutes",
-    "isActive": true,
+    "isActive": false,
     "debug": false,
     "singleRecordExecution": false,
     "remoteExecutableFlag": false,
@@ -349,7 +349,7 @@
     "deletedAt": null,
     "recordTags": [
         "Use-Case",
-        "Threat-Hunting",
-        "File-Content-Extraction"
+        "File-Content-Extraction",
+        "Threat-Hunting"
     ]
 }

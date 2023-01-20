@@ -5,7 +5,7 @@
     "aliasName": null,
     "tag": null,
     "description": "Enriches Indicator with extracted text, indicators and Meta data",
-    "isActive": true,
+    "isActive": false,
     "debug": false,
     "singleRecordExecution": false,
     "remoteExecutableFlag": false,
