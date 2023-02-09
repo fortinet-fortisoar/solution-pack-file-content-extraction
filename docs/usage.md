@@ -57,4 +57,3 @@ Refer to the scenario below to hunt an indicator on SIEM and obtain the events m
 **For Production:**
 1. Set global variable *Demo Mode* as false.
 2. Adapt the playbooks to your environment
-

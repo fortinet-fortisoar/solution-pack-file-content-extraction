@@ -25,4 +25,3 @@ For optimal performance of **File Content Extraction** solution pack, you can in
 - **IBM QRadar**: To configure and use refer to [Configuring IBM QRadar Connector](https://docs.fortinet.com/fortisoar/connectors/ibm_qradar)
 - **AlienVault-OTX**: To configure and use refer to [Configuring AlienVault-OTX Connector](https://docs.fortinet.com/fortisoar/connectors/alienvault-otx)
 - **VirusTotal**: To configure and use refer to [Configuring VirusTotal Connector](https://docs.fortinet.com/fortisoar/connectors/virustotal)
-
