@@ -1,6 +1,6 @@
 {
     "name": "fileContentExtraction",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "type": "solutionpack",
     "local": true,
     "label": "File Content Extraction",
@@ -15,16 +15,21 @@
     ],
     "prerequisite": null,
     "publisher": "Fortinet SE",
-    "description": "Playbooks to extract file metadata and content. The result is added to the record's description and notify the count of IOCs",
-    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.1.0/README.md",
+    "description": "Playbooks for extracting file metadata and content. The result is added to the record's description and notifies the number of IOCs. Hunt for indicators on SIEM.",
+    "help": "https://github.com/fortinet-fortisoar/solution-pack-file-content-extraction/blob/release/1.2.0/README.md",
     "category": [
-        "Investigation",
-        "Utilities"
+        "Utilities",
+        "Investigation"
     ],
     "supportInfo": null,
     "iconLarge": "fsr-icon-large.png",
+    "recordTags": [
+        "ThreatIntelManagement",
+        "Enrichment",
+        "Threat Hunting"
+    ],
     "fsrMinCompatibility": "7.2.0",
-    "date": "2022-09-15T11:35:01+00:00",
+    "date": "2023-01-20T07:53:06+00:00",
     "contents": {
         "playbooks": [
             {
@@ -34,12 +39,27 @@
         "globalVariables": [],
         "connectors": [
             {
+                "name": "AlienVault-OTX",
+                "apiName": "alienvault-otx"
+            },
+            {
                 "name": "Exchange",
                 "apiName": "exchange"
             },
             {
                 "name": "File Content Extraction",
                 "apiName": "file-content-extraction"
+            },
+            {
+                "name": "IBM QRadar",
+                "apiName": "qradar"
+            }
+        ],
+        "recordSets": [
+            {
+                "name": "Attachments",
+                "apiName": "attachments",
+                "count": 1
             }
         ]
     }

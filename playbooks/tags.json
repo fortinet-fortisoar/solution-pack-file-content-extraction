@@ -1,5 +1,8 @@
 [
+    "FileHash_Enrichment",
     "Use-Case",
-    "file-content-extraction",
-    "Advisory"
+    "File-Content-Extraction",
+    "Threat-Hunting",
+    "Advisory",
+    "ThreatIntelManagement"
 ]

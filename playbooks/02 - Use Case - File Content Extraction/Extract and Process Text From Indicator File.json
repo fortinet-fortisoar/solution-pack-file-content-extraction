@@ -5,7 +5,7 @@
     "aliasName": null,
     "tag": null,
     "description": "Enriches Attachment with extracted text, indicators and Meta data",
-    "isActive": true,
+    "isActive": false,
     "debug": false,
     "singleRecordExecution": false,
     "remoteExecutableFlag": false,
@@ -513,8 +513,8 @@
     "isPrivate": false,
     "deletedAt": null,
     "recordTags": [
+        "Advisory",
         "Use-Case",
-        "file-content-extraction",
-        "Advisory"
+        "File-Content-Extraction"
     ]
 }
