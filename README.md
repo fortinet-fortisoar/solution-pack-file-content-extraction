@@ -32,5 +32,4 @@ Solution Pack has the below use cases:
 
 # Next Steps
 
-| [Installation](docs/setup.md#installation) | [Configuration](docs/setup.md#configuration) | [Usage](docs/usage.md) | [Contents](docs/contents.md) |
-|--------------------------------------------|----------------------------------------------|------------------------|------------------------------|
+| [Installation](./docs/setup.md#installation) | [Configuration](./docs/setup.md#configuration) | [Usage](./docs/usage.md) | [Contents](./docs/contents.md) |
